@@ -1,0 +1,39 @@
+version: "3.1"
+services:
+  mysql2:
+    build:
+      context: ./
+      dockerfile: dockerfile
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password --general_log=ON 
+
+
+
+
+    volumes:
+      - /home/username/mysqldatabase:/var/lib/mysql2
+      - ./confmysql/:/etc/mysql/mysql.conf.d
+      - ./hosts/hosts:/etc/hosts
+      - ./resolve:/run/systemd/resolve/
+      - ./resolve/stub-resolv.conf:/etc/resolv.conf
+
+     
+    ports:
+      - '8899:3306'
+    environment:
+      MYSQL_DATABASE: teste
+      MYSQL_ROOT_PASSWORD: teste
+      MYSQL_PASSWORD: teste
+      MYSQL_USER: teste
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql2
+      
+      
+networks:
+  ses_am:
+    external:
+      name: susam0
+
+
+      
+
